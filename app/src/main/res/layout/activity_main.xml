@@ -13,9 +13,37 @@
         android:id="@+id/scrollView"
         android:layout_width="368dp"
         android:layout_height="400dp"
-        tools:layout_editor_absoluteY="-32dp"
+        tools:layout_editor_absoluteY="-29dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <EditText
+        android:id="@+id/inputMemoName"
+        android:layout_width="0dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="25dp"
+        android:layout_height="wrap_content"
+        android:ems="12"
+        android:inputType="textShortMessage"
+        android:text="Memo"
+        app:layout_constraintLeft_toLeftOf="@+id/scrollView"
+        tools:layout_editor_absoluteY="0dp" />
+    <EditText
+        android:id="@+id/inputMemo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="12"
+        android:inputType="textMultiLine"
+        android:text="Memo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/inputMemoName"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <FrameLayout
         android:id="@+id/frameLayout1"
@@ -31,17 +59,13 @@
             android:id="@+id/sendMailButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignParentTop="false"
             android:layout_marginLeft="50dp"
             android:layout_gravity="left"
             android:layout_marginTop="445dp"
-            android:adjustViewBounds="false"
             android:background="@null"
-            android:cropToPadding="false"
             android:scaleType="fitXY"
             android:src="@mipmap/sendmailico"
             android:visibility="visible"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@+id/frameLayout1"
             app:layout_constraintRight_toRightOf="@+id/frameLayout1" />
 
@@ -77,6 +101,8 @@
             android:visibility="visible"
             app:layout_constraintLeft_toLeftOf="@+id/frameLayout1"
             app:layout_constraintRight_toRightOf="@+id/frameLayout1" />
+
+
     </FrameLayout>
 
 
