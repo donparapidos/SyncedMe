@@ -1,10 +1,12 @@
 package com.example.syncedme;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,22 +45,24 @@ public class MainActivity extends AppCompatActivity {
         memoName = preferences.getString("memoName", "");
         memoText = preferences.getString("memoText", "");
 
+        Date curDate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
+        final String dateToStr = format.format(curDate);
+
         sendMailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
               memoName = inputMemoName.getText().toString();
               memoText = inputMemo.getText().toString();
-
+              String emailFor = "goran.parapid@gmail.com";
               SharedPreferences preferences = getSharedPreferences("PREFS", 0);
               /**preferences.Editor editor = preferences.edit();
               editor.putString(memoName,memoText);
               editor.commit(); **/
               preferences.edit().putString(memoName,memoText).commit();
 
-                Date curDate = new Date();
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
-                String dateToStr = format.format(curDate);
+
 
                 /**
                  * Send email with app selector
@@ -66,16 +71,16 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("message/rfc822");
                 //i.setData(Uri.parse("mailto:"));
-                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"goran.parapid@gmail.com"});
+                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{emailFor});
                 i.putExtra(Intent.EXTRA_SUBJECT, "SyncedMe memo: " + memoName + " at " + dateToStr);
                 i.putExtra(Intent.EXTRA_TEXT   , memoText);
 
                 try {
                     startActivity(Intent.createChooser(i, "Send mail..."));
-                    Toast toast = Toast.makeText(MainActivity.this, "Memo sent to email!", Toast.LENGTH_LONG);
+                    /*Toast toast = Toast.makeText(MainActivity.this, "Memo sent to email!", Toast.LENGTH_LONG);
                     View popup = toast.getView();
                     popup.setBackgroundColor(0xA0A0A0);
-                    toast.show();
+                    toast.show();*/
                 } catch (android.content.ActivityNotFoundException ex) {
                     Toast.makeText(MainActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
                 }
@@ -90,10 +95,29 @@ public class MainActivity extends AppCompatActivity {
         sendSmsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 memoName = inputMemoName.getText().toString();
                 memoText = inputMemo.getText().toString();
-                smsText = memoName + ": " + memoText;
+                smsText = "Memo " + memoName + " at " + dateToStr + ": " + memoText;
+                String phoneNo = "031637502";
+
+                SharedPreferences preferences = getSharedPreferences("PREFS", 0);
+                preferences.edit().putString(memoName,memoText).commit();
+                try {
+                    SmsManager sms = SmsManager.getDefault();
+                    ArrayList<String> parts = sms.divideMessage(smsText);
+
+
+                    sms.sendMultipartTextMessage(phoneNo, null, parts, null, null);
+                    Toast toast = Toast.makeText(MainActivity.this, "Memo sent to SMS number " + phoneNo, Toast.LENGTH_LONG);
+                    View popup = toast.getView();
+                    popup.setBackgroundColor(0xA0A0A0);
+                    toast.show();
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(MainActivity.this, "Sending SMS failed.", Toast.LENGTH_SHORT).show();
+                }
+
+
+
 
             }
         });
@@ -112,7 +136,12 @@ public class MainActivity extends AppCompatActivity {
                 inputMemoName.setText(memoName);
                 memoText = "";
                 inputMemo.setText(memoText);
-                return false;
+                Toast toast = Toast.makeText(MainActivity.this, "Memo cleared !", Toast.LENGTH_LONG);
+                View popup = toast.getView();
+                popup.setBackgroundColor(0xA0A0A0);
+                toast.show();
+
+                return true;
             }
         });
     }

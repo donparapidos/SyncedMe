@@ -100,7 +100,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="445dp"
             android:adjustViewBounds="false"
-            android:background="@null"
+            android:background="?android:selectableItemBackground"
             android:cropToPadding="false"
             android:scaleType="fitXY"
             android:src="@mipmap/smsicon"
