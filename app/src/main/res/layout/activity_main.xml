@@ -9,41 +9,64 @@
     tools:context="com.example.syncedme.MainActivity">
 
 
+
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="368dp"
         android:layout_height="400dp"
-        tools:layout_editor_absoluteY="-29dp"
+        tools:layout_editor_absoluteY="-26dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
-    <EditText
-        android:id="@+id/inputMemoName"
+    <RelativeLayout
+        android:id="@+id/relativeToInput"
         android:layout_width="0dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="25dp"
-        android:layout_height="wrap_content"
-        android:ems="12"
-        android:inputType="textShortMessage"
-        android:text="Memo"
-        app:layout_constraintLeft_toLeftOf="@+id/scrollView"
-        tools:layout_editor_absoluteY="0dp" />
-    <EditText
-        android:id="@+id/inputMemo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="12"
-        android:inputType="textMultiLine"
-        android:text="Memo"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@id/inputMemoName"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:layout_height="450dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <ImageView
+            android:layout_width="350dp"
+            android:layout_height="500dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/stickerback"
+            android:scaleType="fitXY" />
+
+
+        <EditText
+            android:id="@+id/inputMemoName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
+            android:ems="12"
+            android:inputType="textShortMessage"
+            android:hint="Memo Name"
+            android:background="@android:color/transparent"
+            android:textAlignment="center"
+            tools:layout_editor_absoluteY="10dp" />
+
+        <EditText
+            android:id="@+id/inputMemo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="60dp"
+            android:background="@android:color/transparent"
+            android:ems="12"
+            android:inputType="textMultiLine"
+            android:hint="Touch to write a memo..."
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/inputMemoName" />
+    </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/frameLayout1"
