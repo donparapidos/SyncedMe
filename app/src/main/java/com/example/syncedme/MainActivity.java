@@ -2,6 +2,7 @@ package com.example.syncedme;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -61,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
                 /**
                  * Send email with app selector
                  */
-                /*
+
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("message/rfc822");
-                i.setData(Uri.parse("mailto:"));
+                //i.setData(Uri.parse("mailto:"));
                 i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"goran.parapid@gmail.com"});
                 i.putExtra(Intent.EXTRA_SUBJECT, "SyncedMe memo: " + memoName + " at " + dateToStr);
                 i.putExtra(Intent.EXTRA_TEXT   , memoText);
@@ -78,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 } catch (android.content.ActivityNotFoundException ex) {
                     Toast.makeText(MainActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
                 }
-                */
-                
+
+
 
             }
 
@@ -100,12 +101,19 @@ public class MainActivity extends AppCompatActivity {
         takeCameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+            }
+        });
+
+        takeCameraButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
                 memoName = "";
                 inputMemoName.setText(memoName);
                 memoText = "";
                 inputMemo.setText(memoText);
+                return false;
             }
         });
-
     }
 }
